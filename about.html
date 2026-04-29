@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f4efe6;
+    --paper-deep: #ebe4d6;
+    --ink: #1f1a14;
+    --ink-soft: #4a3f31;
+    --ink-faded: #8a7a64;
+    --accent: #8b3a1f;
+    --rule: #2a221a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(139, 58, 31, 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(74, 63, 49, 0.05) 0%, transparent 50%);
+  }
+
+  /* Subtle paper grain */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ===== NAVIGATION ===== */
+  nav {
+    padding: 2.5rem 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid rgba(42, 34, 26, 0.15);
+  }
+
+  .nav-mark {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    font-variation-settings: "opsz" 12;
+  }
+
+  .nav-mark span {
+    color: var(--accent);
+  }
+
+  .nav-meta {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    font-weight: 500;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 6rem 0 7rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.1s forwards;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    margin-bottom: 2.5rem;
+    font-variation-settings: "opsz" 144;
+    opacity: 0;
+    animation: fadeUp 1s ease-out 0.3s forwards;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    color: var(--ink-soft);
+    max-width: 720px;
+    line-height: 1.4;
+    margin-bottom: 4rem;
+    opacity: 0;
+    animation: fadeUp 1s ease-out 0.5s forwards;
+  }
+
+  .hero-pitch {
+    max-width: 640px;
+    padding: 2rem 0 0;
+    border-top: 1px solid rgba(42, 34, 26, 0.15);
+    opacity: 0;
+    animation: fadeUp 1s ease-out 0.7s forwards;
+  }
+
+  .hero-pitch-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 1rem;
+  }
+
+  .hero-pitch p {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* Decorative serial number */
+  .hero-serial {
+    position: absolute;
+    top: 6rem;
+    right: 0;
+    font-family: 'Fraunces', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-faded);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== CHAPTERS ===== */
+  .chapters {
+    padding: 5rem 0 6rem;
+    border-top: 1px solid rgba(42, 34, 26, 0.15);
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .chapter {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+    padding: 3.5rem 0;
+    border-bottom: 1px solid rgba(42, 34, 26, 0.1);
+    align-items: start;
+  }
+
+  .chapter:last-child { border-bottom: none; }
+
+  .chapter-meta {
+    position: sticky;
+    top: 2rem;
+  }
+
+  .chapter-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144;
+    margin-bottom: 0.5rem;
+  }
+
+  .chapter-era {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    font-weight: 500;
+  }
+
+  .chapter-content h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.15;
+    margin-bottom: 1.75rem;
+    letter-spacing: -0.015em;
+    font-variation-settings: "opsz" 72;
+  }
+
+  .chapter-content p {
+    font-size: 1.075rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+  }
+
+  .chapter-content p:last-child { margin-bottom: 0; }
+
+  /* ===== PULL QUOTE ===== */
+  .pullquote {
+    padding: 6rem 0;
+    border-top: 1px solid rgba(42, 34, 26, 0.15);
+    border-bottom: 1px solid rgba(42, 34, 26, 0.15);
+    text-align: center;
+    background: linear-gradient(180deg, transparent, rgba(139, 58, 31, 0.03), transparent);
+  }
+
+  .pullquote blockquote {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    line-height: 1.25;
+    color: var(--ink);
+    max-width: 900px;
+    margin: 0 auto;
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 144;
+  }
+
+  .pullquote blockquote::before,
+  .pullquote blockquote::after {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  .pullquote blockquote::before { content: '"'; margin-right: 0.1em; }
+  .pullquote blockquote::after { content: '"'; margin-left: 0.1em; }
+
+  /* ===== PHILOSOPHY ===== */
+  .philosophy {
+    padding: 6rem 0;
+  }
+
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 4rem;
+  }
+
+  .principle {
+    padding: 2.5rem;
+    border-right: 1px solid rgba(42, 34, 26, 0.15);
+    position: relative;
+  }
+
+  .principle:first-child { padding-left: 0; }
+  .principle:last-child { border-right: none; padding-right: 0; }
+
+  .principle-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .principle h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .principle p {
+    font-size: 0.975rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  /* ===== WORK NOW ===== */
+  .work-now {
+    padding: 6rem 0;
+    border-top: 1px solid rgba(42, 34, 26, 0.15);
+    background: var(--paper-deep);
+    margin: 0 -100vw;
+    padding-left: 100vw;
+    padding-right: 100vw;
+  }
+
+  .work-now-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  .work-now h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    max-width: 900px;
+    font-variation-settings: "opsz" 144;
+  }
+
+  .work-now h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .work-now-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+  }
+
+  .work-now-col p {
+    font-size: 1.075rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 4rem 0 3rem;
+    border-top: 1px solid rgba(42, 34, 26, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--ink-faded);
+  }
+
+  footer .footer-mark {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .container { padding: 0 1.5rem; }
+    .hero { padding: 4rem 0 5rem; }
+    .hero-serial { display: none; }
+    .chapter {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 2.5rem 0;
+    }
+    .chapter-meta { position: static; }
+    .chapter-num { font-size: 2.5rem; }
+    .philosophy-grid {
+      grid-template-columns: 1fr;
+    }
+    .principle {
+      border-right: none;
+      border-bottom: 1px solid rgba(42, 34, 26, 0.15);
+      padding: 2rem 0;
+    }
+    .principle:first-child { padding-top: 0; }
+    .principle:last-child { border-bottom: none; padding-bottom: 0; }
+    .work-now-cols {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .work-now { padding: 4rem 0; }
+    footer {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-mark">A life, <span>deliberately</span>.</div>
+    <div class="nav-meta">Est. circa 1985</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-serial">Vol. I &nbsp;·&nbsp; No. 01</div>
+
+    <div class="hero-eyebrow">An introduction</div>
+
+    <h1 class="hero-headline">
+      He shows up.<br>
+      <em>That's the whole strategy.</em>
+    </h1>
+
+    <p class="hero-sub">
+      Forty years of outworking the room — first in software, then in real estate. Now spent quietly, on the people who matter.
+    </p>
+
+    <div class="hero-pitch">
+      <div class="hero-pitch-label">When people ask what he does</div>
+      <p>"I'm semi-retired — I do a little real estate, travel to see friends, and mentor young people on living deliberately."</p>
+    </div>
+  </section>
+
+  <!-- CHAPTERS -->
+  <section class="chapters">
+    <div class="section-label">The story</div>
+
+    <article class="chapter">
+      <div class="chapter-meta">
+        <div class="chapter-num">01</div>
+        <div class="chapter-era">The early run</div>
+      </div>
+      <div class="chapter-content">
+        <h2>He came up the way the best salespeople do — by outworking the room.</h2>
+        <p>Early in his career he was a consistent top achiever and a President's Club honoree. That track record opened the door to a leadership role during one of the most exhilarating stretches the software industry has ever seen — the go-go days of the SaaS and internet boom, when he ran a large sales organization and helped build something that mattered.</p>
+      </div>
+    </article>
+
+    <article class="chapter">
+      <div class="chapter-meta">
+        <div class="chapter-num">02</div>
+        <div class="chapter-era">The pivot</div>
+      </div>
+      <div class="chapter-content">
+        <h2>When his daughter was young, he made a decision that surprised some of his peers.</h2>
+        <p>He left enterprise software for real estate brokerage — a deliberate trade of intensity for flexibility. The work suited him, and the same instinct carried over: while a lot of agents were content to key a listing into the system and wait for the phone to ring, he was the guy actually out there doing the work — making the property show better, walking buyers through the hard questions, doing the unglamorous things that turn a transaction into a result.</p>
+        <p>Clients noticed, and they came back to him again and again. Along the way he was part of some interesting transactions and made a handful of investments — in the markets and in property — that quietly did their work in the background.</p>
+      </div>
+    </article>
+
+    <article class="chapter">
+      <div class="chapter-meta">
+        <div class="chapter-num">03</div>
+        <div class="chapter-era">The privilege</div>
+      </div>
+      <div class="chapter-content">
+        <h2>That same season of life asked something else of him.</h2>
+        <p>His father's health began to decline, and he became his primary caregiver until his father passed. Then his mother, for years after that. He doesn't talk about those years as sacrifice — he talks about them as the privilege of his life. Sitting with his parents, hearing their stories one more time, being the person they could count on.</p>
+        <p>His mother's recent passing has hit him harder than he expected, and it's sharpened his sense of what he wants to do with the years ahead.</p>
+      </div>
+    </article>
+
+    <article class="chapter">
+      <div class="chapter-meta">
+        <div class="chapter-num">04</div>
+        <div class="chapter-era">The travel</div>
+      </div>
+      <div class="chapter-content">
+        <h2>He travels often, but rarely the way you'd expect.</h2>
+        <p>He's not collecting countries or posting from infinity pools. He's getting on a plane to see a friend — and when he gets there, he's looking for something to do. Leaves on the roof, a fence that needs mending, a hard decision someone's been turning over for months and just needs a thoughtful ear for.</p>
+        <p>He'd rather spend a long weekend being useful to one person than a week being impressed by a place. That's the version of generosity he learned from his parents, and it's the one he tries to pass on.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <section class="pullquote">
+    <blockquote>
+      Forty years of car payments is one of the quietest destroyers of wealth there is.
+    </blockquote>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy">
+    <div class="section-label">What he tries to pass on</div>
+
+    <div class="philosophy-grid">
+      <div class="principle">
+        <span class="principle-num">i.</span>
+        <h3>Outwork the room early.</h3>
+        <p>The work ethic you build in your first decade compounds for the rest of your career — and gives you options most people never have.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-num">ii.</span>
+        <h3>Spend less than you think you need to.</h3>
+        <p>The Jeep he bought in high school still runs. Forty years without a car payment is what bought him the freedom to be home for what mattered. The choices that don't impress anyone are usually the ones that count.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-num">iii.</span>
+        <h3>Protect time with the people you love.</h3>
+        <p>Family and friends first. Always. The hours you spend with the people who matter are the ones you'll remember — and being blessed is something you acknowledge, not something you earn.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK NOW -->
+  <section class="work-now">
+    <div class="work-now-inner">
+      <div class="section-label">What he's doing now</div>
+      <h2>Mentoring the next generation on what <em>actually matters</em>.</h2>
+      <div class="work-now-cols">
+        <div class="work-now-col">
+          <p>He's never been interested in looking wealthy. He still proudly drives the same vintage Jeep he bought brand new in high school — forty years ago. He lives in the same house he's lived in for years, with a mortgage he could retire tomorrow but chooses to keep.</p>
+          <p>None of this is about deprivation. It's about independence — the kind that lets you show up for your parents, travel to see your friends, and be there for the people who matter when they need you.</p>
+        </div>
+        <div class="work-now-col">
+          <p>Today he writes, mentors, and travels. He speaks to young professionals, young parents, and high school and college students about the things nobody really teaches you: how to think about money, family, and what "enough" actually looks like.</p>
+          <p>The lesson he comes back to most: <em>the people with real financial security almost never look the part — and chasing the appearance of wealth is one of the most reliable ways to never actually build it.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-mark">A life, deliberately.</div>
+    <div>For young people willing to listen · For friends who need a hand</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="SlideshowScene" extends="Scene">
+    <script type="text/brightscript" uri="pkg:/components/SlideshowScene.brs" />
+
+    <children>
+        <Rectangle id="bg" width="1920" height="1080" color="0x000000FF" />
+
+        <Poster id="slidePoster"
+                width="1920" height="1080"
+                loadDisplayMode="scaleToFit"
+                opacity="1.0" />
+
+        <Poster id="nextPoster"
+                width="1920" height="1080"
+                loadDisplayMode="scaleToFit"
+                opacity="0.0" />
+
+        <Audio id="musicPlayer" />
+
+        <Rectangle id="statusBg"
+                   width="1920" height="1080"
+                   color="0x000000FF"
+                   opacity="0.85"
+                   visible="true" />
+
+        <Label id="titleLabel"
+               translation="[120, 360]"
+               width="1680"
+               horizAlign="center"
+               color="0xFFFFFFFF"
+               font="font:LargeBoldSystemFont"
+               text="Web Slideshow" />
+
+        <Label id="statusLabel"
+               translation="[120, 480]"
+               width="1680"
+               horizAlign="center"
+               wrap="true"
+               color="0xCCCCCCFF"
+               font="font:MediumSystemFont"
+               text="Loading..." />
+
+        <Label id="hintLabel"
+               translation="[120, 980]"
+               width="1680"
+               horizAlign="center"
+               color="0x888888FF"
+               font="font:SmallSystemFont"
+               text="Press * (Star) to change source URL" />
+
+        <Animation id="fadeAnim" duration="1.2" repeat="false" easeFunction="linear">
+            <FloatFieldInterpolator
+                key="[0.0, 1.0]"
+                keyValue="[0.0, 1.0]"
+                fieldToInterp="nextPoster.opacity" />
+            <FloatFieldInterpolator
+                key="[0.0, 1.0]"
+                keyValue="[1.0, 0.0]"
+                fieldToInterp="slidePoster.opacity" />
+        </Animation>
+
+        <Timer id="slideTimer" repeat="false" duration="6" />
+    </children>
+</component>

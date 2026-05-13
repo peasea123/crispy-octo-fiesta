@@ -1,0 +1,12 @@
+{
+  "duration": 6,
+  "images": [
+    "slide1.jpg",
+    "slide2.jpg",
+    "slide3.png"
+  ],
+  "audio": [
+    "song1.mp3",
+    "song2.mp3"
+  ]
+}
